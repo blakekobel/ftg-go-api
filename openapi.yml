@@ -1,0 +1,19 @@
+    swagger: "2.0"
+    info:
+      title: fishtech-api-ip optional-string
+      description: "Returns the IP address of that is passed through the url of a cloud function"
+      version: "1.0.0"
+    schemes:
+      - "https"
+    paths:
+      /:
+        get:
+          summary: Greet a user
+          operationId: get_ip
+          x-google-backend:
+            address: https://us-central1-ftg-api-305416.cloudfunctions.net/main
+          responses:
+            '200':
+              description: A successful response
+              schema:
+                type: string
