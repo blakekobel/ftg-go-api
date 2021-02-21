@@ -1,5 +1,5 @@
 # Blake Kobel FTG Go Skills Challenge
-API Gateway link is: https://ftg-api-ip-gateway-3g5kn0p6.uc.gateway.dev/?ip=espn.com
+API Gateway link is: https://ftg-api-ip-gateway-3g5kn0p6.uc.gateway.dev/?ip=espn.com or https://ftg-api-ip-gateway-3g5kn0p6.uc.gateway.dev/?ip=8.8.8.8
 
 ## Setup 
 - Install Terraform here: https://www.terraform.io/downloads.html

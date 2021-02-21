@@ -56,15 +56,15 @@ resource "google_cloudfunctions_function" "test" {
     labels                    =  {"deployment_name":"test"}
 }
 
-# IAM entry for all users to invoke the function
-resource "google_cloudfunctions_function_iam_member" "invoker" {
-  project        = google_cloudfunctions_function.test.project
-  region         = google_cloudfunctions_function.test.region
-  cloud_function = google_cloudfunctions_function.test.name
+# # IAM entry for all users to invoke the function
+# resource "google_cloudfunctions_function_iam_member" "invoker" {
+#   project        = google_cloudfunctions_function.test.project
+#   region         = google_cloudfunctions_function.test.region
+#   cloud_function = google_cloudfunctions_function.test.name
 
-  role   = "roles/cloudfunctions.invoker"
-  member = "allUsers"
-}
+#   role   = "roles/cloudfunctions.invoker"
+#   member = "allUsers"
+# }
 
 resource "google_api_gateway_api" "FTG_api_gateway_api_ip" {
   provider = google-beta
