@@ -8,7 +8,7 @@
     paths:
       /:
         get:
-          summary: Greet a user
+          summary: Return an IP address
           operationId: get_ip
           x-google-backend:
             address: https://us-central1-ftg-api-305416.cloudfunctions.net/main
