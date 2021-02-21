@@ -21,7 +21,7 @@ type IPAddr struct {
 	ExpirationDate string `json:"exp_dt"`
 }
 
-// PrintIP out the IP address that is passed
+// PrintIP reads the ip address or domain passed to the API Gateway and returns information about that IP/URL
 func PrintIP(w http.ResponseWriter, r *http.Request) {
 	// This chunk of code receives the query from the API Gateway
 	// This checks for the following argument in the url /?ip={IP Address or DomainName}
