@@ -4,7 +4,6 @@ package printip
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 
@@ -32,7 +31,7 @@ func PrintIP(w http.ResponseWriter, r *http.Request) {
 		urlarg = key[0]
 	} else {
 		fmt.Fprint(w, "You need to call the api with /?ip={IP Address or DomainName}")
-		log.Fatal("You need to call the api with /?ip={IP Address or DomainName}")
+		return
 	}
 
 	ipin := "none"
@@ -55,6 +54,7 @@ func PrintIP(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, addrerr)
 			fmt.Fprint(w, iperr)
 			fmt.Fprint(w, "Niether the IP address or the Domain returned a value")
+			return
 		}
 	}
 
@@ -64,11 +64,13 @@ func PrintIP(w http.ResponseWriter, r *http.Request) {
 	if raw, rawErr := whois.Whois(domname); rawErr != nil {
 		//Print Error Message if there was an error in the first IP lookup
 		fmt.Fprint(w, rawErr)
+		return
 	} else {
 		// fmt.Println(raw)
 		if result, err := whoisparser.Parse(raw); err != nil {
 			// Print error if there was an issue parsing the raw WhoIs IP data
 			fmt.Fprint(w, err)
+			return
 		} else {
 			//If no errors occur, we populate the struct created earlier with the data we want to provide
 			e4 := IPAddr{
