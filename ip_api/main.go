@@ -34,6 +34,7 @@ func PrintIP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Initialize these to variables to be used throughout.
 	ipin := "none"
 	domname := "none"
 
