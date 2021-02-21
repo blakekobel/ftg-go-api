@@ -24,26 +24,26 @@ provider "google-beta" {
   region  = "us-central1"
 }
 
-resource "google_storage_bucket" "ftg_ip_api_bucket" {
-  name = "ftg-ipapi-bucket"
+resource "google_storage_bucket" "ftg_api_ip_bucket" {
+  name = "ftg-api-ip-bucket"
 }
 
-data "archive_file" "ip_api" {
+data "archive_file" "api_ip" {
   type          = "zip"
-  output_path   = "${path.module}/files/ip_api.zip"
+  output_path   = "${path.module}/files/api_ip.zip"
   source_dir    = "${path.root}/ip_api/"
 }
 
 resource "google_storage_bucket_object" "archive" {
-  name          = "ip_api.zip"
-  bucket        = google_storage_bucket.ftg_ip_api_bucket.name
-  source        = "${path.module}/files/ip_api.zip"
-  depends_on    = [data.archive_file.ip_api]
+  name          = "api_ip.zip"
+  bucket        = google_storage_bucket.ftg_api_ip_bucket.name
+  source        = "${path.module}/files/api_ip.zip"
+  depends_on    = [data.archive_file.api_ip]
 }
 
 #Create the GoLang Cloud Function
 resource "google_cloudfunctions_function" "test" {
-    name                      = "ftg-api-ip-get"
+    name                      = "ftg-ip-api-get"
     entry_point               = "PrintIP"
     available_memory_mb       = 256
     timeout                   = 120
@@ -51,7 +51,7 @@ resource "google_cloudfunctions_function" "test" {
     trigger_http              = true
     # ingress_settings              = "ALLOW_ALL"
     runtime                   = "go113"
-    source_archive_bucket     = google_storage_bucket.ftg_ip_api_bucket.name
+    source_archive_bucket     = google_storage_bucket.ftg_api_ip_bucket.name
     source_archive_object     = google_storage_bucket_object.archive.name
     labels                    =  {"deployment_name":"test"}
 }
@@ -66,14 +66,15 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
   member = "allUsers"
 }
 
-resource "google_api_gateway_api" "FTG_api_gateway_api" {
+resource "google_api_gateway_api" "FTG_api_gateway_api_ip" {
   provider = google-beta
-  api_id = "ftg-api-ip"
+  api_id = "ftg-api-gw"
 }
 
 resource "google_api_gateway_api_config" "FTG_api_gateway_cfg" {
   provider = google-beta
-  api = google_api_gateway_api.FTG_api_gateway_api.api_id
+  api = google_api_gateway_api.FTG_api_gateway_api_ip.api_id
+  display_name = "ftg-api-ip-cfg"
   openapi_documents {
     document {
         path = "openapi.yml"
