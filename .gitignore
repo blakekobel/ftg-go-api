@@ -10,6 +10,8 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+axiomatic-set-305500-5610f6d7ec1a.json
+formal-theater-305519-c85df13a9aba.json
 
 # Dependency directories (remove the comment below to include it)
 # vendor/

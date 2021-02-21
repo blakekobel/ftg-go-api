@@ -9,18 +9,17 @@ terraform {
 
 provider "google" {
 
-  credentials = file("axiomatic-set-305500-5610f6d7ec1a.json")
+  credentials = file("formal-theater-305519-c85df13a9aba.json")
 
-  project = "axiomatic-set-305500"
+  project = "formal-theater-30551"
   region  = "us-central1"
-  zone    = "us-central1-c"
 }
 
 provider "google-beta" {
 
-  credentials = file("axiomatic-set-305500-5610f6d7ec1a.json")
+  credentials = file("formal-theater-305519-c85df13a9aba.json")
 
-  project = "axiomatic-set-305500"
+  project = "formal-theater-30551"
   region  = "us-central1"
 }
 
