@@ -11,20 +11,21 @@ provider "google" {
 
   credentials = file("formal-theater-305519-c85df13a9aba.json")
 
-  project = "formal-theater-30551"
+  project = "formal-theater-305519"
   region  = "us-central1"
+  zone    = "us-central1-c"
 }
 
 provider "google-beta" {
 
   credentials = file("formal-theater-305519-c85df13a9aba.json")
 
-  project = "formal-theater-30551"
+  project = "formal-theater-305519"
   region  = "us-central1"
 }
 
-resource "google_storage_bucket" "ftg_api_ip_bucket" {
-  name = "ftg-api-ip-bucket"
+resource "google_storage_bucket" "ftgapiipbucket" {
+  name = "ftgapiipbucket"
 }
 
 data "archive_file" "api_ip" {
@@ -35,7 +36,7 @@ data "archive_file" "api_ip" {
 
 resource "google_storage_bucket_object" "archive" {
   name          = "api_ip.zip"
-  bucket        = google_storage_bucket.ftg_api_ip_bucket.name
+  bucket        = google_storage_bucket.ftgapiipbucket.name
   source        = "${path.module}/files/api_ip.zip"
   depends_on    = [data.archive_file.api_ip]
 }
@@ -50,7 +51,7 @@ resource "google_cloudfunctions_function" "test" {
     trigger_http              = true
     # ingress_settings              = "ALLOW_ALL"
     runtime                   = "go113"
-    source_archive_bucket     = google_storage_bucket.ftg_api_ip_bucket.name
+    source_archive_bucket     = google_storage_bucket.ftgapiipbucket.name
     source_archive_object     = google_storage_bucket_object.archive.name
     labels                    =  {"deployment_name":"test"}
 }

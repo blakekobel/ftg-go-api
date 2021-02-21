@@ -4,6 +4,7 @@ package printip
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net"
 	"net/http"
 
@@ -31,6 +32,7 @@ func PrintIP(w http.ResponseWriter, r *http.Request) {
 		urlarg = key[0]
 	} else {
 		fmt.Fprint(w, "You need to call the api with /?ip={IP Address or DomainName}")
+		log.Fatal("You need to call the api with /?ip={IP Address or DomainName}")
 	}
 
 	ipin := "none"
