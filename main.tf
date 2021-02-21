@@ -56,6 +56,7 @@ resource "google_cloudfunctions_function" "test" {
     labels                    =  {"deployment_name":"test"}
 }
 
+##Uncomment if the API Gateway cant call the function or if you want to test the function by itself.
 # # IAM entry for all users to invoke the function
 # resource "google_cloudfunctions_function_iam_member" "invoker" {
 #   project        = google_cloudfunctions_function.test.project
